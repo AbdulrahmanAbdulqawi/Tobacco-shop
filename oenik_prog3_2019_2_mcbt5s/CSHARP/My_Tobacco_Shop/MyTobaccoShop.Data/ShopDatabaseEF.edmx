@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ShopDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CategoryTable">
+          <Key>
+            <PropertyRef Name="CA_ID" />
+          </Key>
+          <Property Name="CA_ID" Type="int" Nullable="false" />
+          <Property Name="CA_TITLE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CA_DESCRIPTION" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CU_ID" />
+          </Key>
+          <Property Name="CU_ID" Type="int" Nullable="false" />
+          <Property Name="CU_NAME" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CU_EMAIL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CU_CONTACT" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="CU_ADDRESS" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="O_ID" />
+          </Key>
+          <Property Name="O_ID" Type="int" Nullable="false" />
+          <Property Name="O_QUANTITY" Type="int" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="int" Nullable="false" />
+          <Property Name="PRODUCT_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ProductTable">
+          <Key>
+            <PropertyRef Name="P_ID" />
+          </Key>
+          <Property Name="P_ID" Type="int" Nullable="false" />
+          <Property Name="P_NAME" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="CATEGORY_ID" Type="int" Nullable="false" />
+          <Property Name="P_PRICE" Type="decimal" Precision="8" Scale="2" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="int" Nullable="false" />
+          <Property Name="U_FULLNAME" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="U_EMAIL" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="U_USERNAME" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="U_PASSWORD" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="U_TYPE" Type="nvarchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__OrderTabl__CUSTO__2D27B809">
+          <End Role="CustomerTable" Type="Self.CustomerTable" Multiplicity="1" />
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTable">
+              <PropertyRef Name="CU_ID" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderTabl__PRODU__2C3393D0">
+          <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="1" />
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTable">
+              <PropertyRef Name="P_ID" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="PRODUCT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ProductTa__CATEG__29572725">
+          <End Role="CategoryTable" Type="Self.CategoryTable" Multiplicity="1" />
+          <End Role="ProductTable" Type="Self.ProductTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTable">
+              <PropertyRef Name="CA_ID" />
+            </Principal>
+            <Dependent Role="ProductTable">
+              <PropertyRef Name="CATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopDatabaseModelStoreContainer">
+          <EntitySet Name="CategoryTable" EntityType="Self.CategoryTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTable" EntityType="Self.CustomerTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTable" EntityType="Self.OrderTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTable" EntityType="Self.ProductTable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserTable" EntityType="Self.UserTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__OrderTabl__CUSTO__2D27B809" Association="Self.FK__OrderTabl__CUSTO__2D27B809">
+            <End Role="CustomerTable" EntitySet="CustomerTable" />
+            <End Role="OrderTable" EntitySet="OrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderTabl__PRODU__2C3393D0" Association="Self.FK__OrderTabl__PRODU__2C3393D0">
+            <End Role="ProductTable" EntitySet="ProductTable" />
+            <End Role="OrderTable" EntitySet="OrderTable" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ProductTa__CATEG__29572725" Association="Self.FK__ProductTa__CATEG__29572725">
+            <End Role="CategoryTable" EntitySet="CategoryTable" />
+            <End Role="ProductTable" EntitySet="ProductTable" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ShopDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CategoryTable">
+          <Key>
+            <PropertyRef Name="CA_ID" />
+          </Key>
+          <Property Name="CA_ID" Type="Int32" Nullable="false" />
+          <Property Name="CA_TITLE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CA_DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="ProductTables" Relationship="ShopDatabaseModel.FK__ProductTa__CATEG__29572725" FromRole="CategoryTable" ToRole="ProductTable" />
+        </EntityType>
+        <EntityType Name="CustomerTable">
+          <Key>
+            <PropertyRef Name="CU_ID" />
+          </Key>
+          <Property Name="CU_ID" Type="Int32" Nullable="false" />
+          <Property Name="CU_NAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CU_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CU_CONTACT" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CU_ADDRESS" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="OrderTables" Relationship="Self.FK__OrderTabl__CUSTO__2D27B809" FromRole="CustomerTable" ToRole="OrderTable" />
+        </EntityType>
+        <EntityType Name="OrderTable">
+          <Key>
+            <PropertyRef Name="O_ID" />
+          </Key>
+          <Property Name="O_ID" Type="Int32" Nullable="false" />
+          <Property Name="O_QUANTITY" Type="Int32" Nullable="false" />
+          <Property Name="CUSTOMER_ID" Type="Int32" Nullable="false" />
+          <Property Name="PRODUCT_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CustomerTable" Relationship="Self.FK__OrderTabl__CUSTO__2D27B809" FromRole="OrderTable" ToRole="CustomerTable" />
+          <NavigationProperty Name="ProductTable" Relationship="ShopDatabaseModel.FK__OrderTabl__PRODU__2C3393D0" FromRole="OrderTable" ToRole="ProductTable" />
+        </EntityType>
+        <EntityType Name="UserTable">
+          <Key>
+            <PropertyRef Name="U_ID" />
+          </Key>
+          <Property Name="U_ID" Type="Int32" Nullable="false" />
+          <Property Name="U_FULLNAME" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="U_EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="U_USERNAME" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="U_PASSWORD" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="U_TYPE" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__OrderTabl__CUSTO__2D27B809">
+          <End Role="CustomerTable" Type="Self.CustomerTable" Multiplicity="1" />
+          <End Role="OrderTable" Type="Self.OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTable">
+              <PropertyRef Name="CU_ID" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="CUSTOMER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ShopDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CategoryTables" EntityType="Self.CategoryTable" />
+          <EntitySet Name="CustomerTables" EntityType="Self.CustomerTable" />
+          <EntitySet Name="OrderTables" EntityType="Self.OrderTable" />
+          <EntitySet Name="UserTables" EntityType="Self.UserTable" />
+          <AssociationSet Name="FK__OrderTabl__CUSTO__2D27B809" Association="Self.FK__OrderTabl__CUSTO__2D27B809">
+            <End Role="CustomerTable" EntitySet="CustomerTables" />
+            <End Role="OrderTable" EntitySet="OrderTables" />
+          </AssociationSet>
+          <EntitySet Name="ProductTables" EntityType="ShopDatabaseModel.ProductTable" />
+          <AssociationSet Name="FK__ProductTa__CATEG__29572725" Association="ShopDatabaseModel.FK__ProductTa__CATEG__29572725">
+            <End Role="CategoryTable" EntitySet="CategoryTables" />
+            <End Role="ProductTable" EntitySet="ProductTables" />
+          </AssociationSet>
+          <AssociationSet Name="FK__OrderTabl__PRODU__2C3393D0" Association="ShopDatabaseModel.FK__OrderTabl__PRODU__2C3393D0">
+            <End Role="ProductTable" EntitySet="ProductTables" />
+            <End Role="OrderTable" EntitySet="OrderTables" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ProductTable">
+          <Key>
+            <PropertyRef Name="P_ID" />
+          </Key>
+          <Property Name="P_ID" Type="Int32" Nullable="false" />
+          <Property Name="P_NAME" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CATEGORY_ID" Type="Int32" Nullable="false" />
+          <Property Name="P_PRICE" Type="Decimal" Precision="8" Scale="2" />
+          <NavigationProperty Name="CategoryTable" Relationship="ShopDatabaseModel.FK__ProductTa__CATEG__29572725" FromRole="ProductTable" ToRole="CategoryTable" />
+          <NavigationProperty Name="OrderTables" Relationship="ShopDatabaseModel.FK__OrderTabl__PRODU__2C3393D0" FromRole="ProductTable" ToRole="OrderTable" />
+        </EntityType>
+        <Association Name="FK__ProductTa__CATEG__29572725">
+          <End Type="ShopDatabaseModel.CategoryTable" Role="CategoryTable" Multiplicity="1" />
+          <End Type="ShopDatabaseModel.ProductTable" Role="ProductTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CategoryTable">
+              <PropertyRef Name="CA_ID" />
+            </Principal>
+            <Dependent Role="ProductTable">
+              <PropertyRef Name="CATEGORY_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__OrderTabl__PRODU__2C3393D0">
+          <End Type="ShopDatabaseModel.ProductTable" Role="ProductTable" Multiplicity="1" />
+          <End Type="ShopDatabaseModel.OrderTable" Role="OrderTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTable">
+              <PropertyRef Name="P_ID" />
+            </Principal>
+            <Dependent Role="OrderTable">
+              <PropertyRef Name="PRODUCT_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ShopDatabaseModelStoreContainer" CdmEntityContainer="ShopDatabaseEntities">
+          <EntitySetMapping Name="CategoryTables">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.CategoryTable">
+              <MappingFragment StoreEntitySet="CategoryTable">
+                <ScalarProperty Name="CA_ID" ColumnName="CA_ID" />
+                <ScalarProperty Name="CA_TITLE" ColumnName="CA_TITLE" />
+                <ScalarProperty Name="CA_DESCRIPTION" ColumnName="CA_DESCRIPTION" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTables">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.CustomerTable">
+              <MappingFragment StoreEntitySet="CustomerTable">
+                <ScalarProperty Name="CU_ID" ColumnName="CU_ID" />
+                <ScalarProperty Name="CU_NAME" ColumnName="CU_NAME" />
+                <ScalarProperty Name="CU_EMAIL" ColumnName="CU_EMAIL" />
+                <ScalarProperty Name="CU_CONTACT" ColumnName="CU_CONTACT" />
+                <ScalarProperty Name="CU_ADDRESS" ColumnName="CU_ADDRESS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTables">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.OrderTable">
+              <MappingFragment StoreEntitySet="OrderTable">
+                <ScalarProperty Name="O_ID" ColumnName="O_ID" />
+                <ScalarProperty Name="O_QUANTITY" ColumnName="O_QUANTITY" />
+                <ScalarProperty Name="CUSTOMER_ID" ColumnName="CUSTOMER_ID" />
+                <ScalarProperty Name="PRODUCT_ID" ColumnName="PRODUCT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserTables">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.UserTable">
+              <MappingFragment StoreEntitySet="UserTable">
+                <ScalarProperty Name="U_ID" ColumnName="U_ID" />
+                <ScalarProperty Name="U_FULLNAME" ColumnName="U_FULLNAME" />
+                <ScalarProperty Name="U_EMAIL" ColumnName="U_EMAIL" />
+                <ScalarProperty Name="U_USERNAME" ColumnName="U_USERNAME" />
+                <ScalarProperty Name="U_PASSWORD" ColumnName="U_PASSWORD" />
+                <ScalarProperty Name="U_TYPE" ColumnName="U_TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTables">
+            <EntityTypeMapping TypeName="ShopDatabaseModel.ProductTable">
+              <MappingFragment StoreEntitySet="ProductTable">
+                <ScalarProperty Name="P_PRICE" ColumnName="P_PRICE" />
+                <ScalarProperty Name="CATEGORY_ID" ColumnName="CATEGORY_ID" />
+                <ScalarProperty Name="P_NAME" ColumnName="P_NAME" />
+                <ScalarProperty Name="P_ID" ColumnName="P_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

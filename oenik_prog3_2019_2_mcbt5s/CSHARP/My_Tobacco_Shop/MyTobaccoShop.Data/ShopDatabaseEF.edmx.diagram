@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="32c3c695ab9e471ea307687e3ae0c5ce" Name="Diagram1">
+        <EntityTypeShape EntityType="ShopDatabaseModel.CategoryTable" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDatabaseModel.CustomerTable" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDatabaseModel.OrderTable" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShopDatabaseModel.UserTable" Width="1.5" PointX="5.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="ShopDatabaseModel.FK__OrderTabl__CUSTO__2D27B809" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ShopDatabaseModel.ProductTable" Width="1.5" PointX="3" PointY="0.875" />
+        <AssociationConnector Association="ShopDatabaseModel.FK__ProductTa__CATEG__29572725" />
+        <AssociationConnector Association="ShopDatabaseModel.FK__OrderTabl__PRODU__2C3393D0" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
